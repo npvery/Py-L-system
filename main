@@ -1,0 +1,39 @@
+import turtle
+window = turtle.Screen()
+nick = turtle.Turtle()
+
+def applyRules(s):
+    s = str(s)
+    new_string = ""
+    if s == 'A':
+        new_string = 'CATA'
+    else:
+        new_string = s
+    return new_string
+
+def processString(old_string):
+    new_string = ""
+    for eachChar in old_string:
+        new_string = new_string + applyRules(eachChar)
+    return new_string
+
+def LSystem(iterations, axiom):
+    start_str = axiom
+    end_str = ""
+    for i in range(iterations):
+        end_str = processString(start_str)
+        start_str = end_str
+        
+    return end_str
+
+def drawLSystem(turtle, instructions, angle, distance):
+    for eachChar in instructions:
+        if eachChar == 'C':
+            nick.forward(distance)
+        elif eachChar == 'A':
+            nick.left(angle)
+        else:
+            nick.backward(distance * 3)
+
+inst = LSystem(3, 'A')            
+drawLSystem(nick, inst, 40, 10)
